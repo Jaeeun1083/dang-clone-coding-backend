@@ -1,19 +1,18 @@
 package com.daangn.member.domain;
 
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
-/**
- * 회원.
- */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -34,12 +33,14 @@ public class Member {
     private MemberStatus status;
 
     @Builder
-    private Member(Long id, String email, String password, String nickName, String imageUrl, MemberStatus status) {
+    private Member(Long id, String email, String password, String nickName, String imageUrl, LocalDateTime updatedAt, MemberStatus status) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickName = nickName;
         this.imageUrl = imageUrl;
+        this.updatedAt = updatedAt;
         this.status = status;
     }
+
 }
