@@ -13,9 +13,9 @@ public class AuthorizationExtractor {
     public static String getTokenFromRequset(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TYPE)) {
-            return bearerToken.substring(7);
+            return bearerToken.substring(BEARER_TYPE.length());
         }
         throw new AuthorizationUninvolvedException();
     }
-    
+
 }

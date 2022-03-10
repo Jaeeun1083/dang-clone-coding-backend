@@ -24,5 +24,5 @@ public class AuthController {
         return ResponseEntity.ok()
                 .body(authService.login(loginRequestDTO));
     }
-    
+
 }
