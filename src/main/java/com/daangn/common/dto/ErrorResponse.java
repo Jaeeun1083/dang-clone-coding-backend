@@ -1,5 +1,8 @@
 package com.daangn.common.dto;
 
+import lombok.Getter;
+
+@Getter
 public class ErrorResponse {
 
     private String message;

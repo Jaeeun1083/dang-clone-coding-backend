@@ -2,7 +2,6 @@ package com.daangn.common.config;
 
 import com.daangn.auth.handler.AuthenticationArgumentResolver;
 import com.daangn.auth.handler.AuthenticationInterceptor;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -11,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
@@ -26,10 +25,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> addPath = List.of(
-
+                "api/members/signin"
         );
         List<String> excludePath = List.of(
-                "api/members/signin"
+
         );
         registry.addInterceptor(authenticationInterceptor)
                 .addPathPatterns(addPath)
