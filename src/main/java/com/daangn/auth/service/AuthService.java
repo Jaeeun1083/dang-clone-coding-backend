@@ -4,6 +4,8 @@ import com.daangn.auth.dto.LoginRequestDTO;
 import com.daangn.auth.dto.TokenResponseDTO;
 import com.daangn.auth.util.TokenProvider;
 import com.daangn.member.domain.Member;
+import com.daangn.member.domain.MemberStatus;
+import com.daangn.member.dto.MemberDto;
 import com.daangn.member.exceptions.NotFoundMemberException;
 import com.daangn.member.exceptions.NotMatchMemberException;
 import com.daangn.member.repository.MemberRepository;
@@ -26,7 +28,7 @@ public class AuthService {
                 .orElseThrow(() -> new NotFoundMemberException());
         validatePassword(findMember, loginRequestDTO.getPassword());
         String token = createToken(findMember.getId());
-        return TokenResponseDTO.from(token);
+        return new TokenResponseDTO(token);
     }
 
     private String createToken(Long id) {
@@ -37,6 +39,30 @@ public class AuthService {
         if (!passwordEncoder.matches(password, member.getPassword())) {
             throw new NotMatchMemberException();
         }
+    }
+
+    public Member createMember(MemberDto dto) {
+        existsEmail(dto.getEmail());
+        Member member = Member.builder()
+               .email(dto.getEmail())
+               .password(dto.getPassword())
+               .imageUrl(dto.getImageUrl())
+               .nickName(dto.getNickName())
+               .status(MemberStatus.valueOf(dto.getStatus()))
+               .build();
+        memberRepository.save(member);
+        return member;
+    }
+
+    public Boolean existsEmail(String email) {
+        return memberRepository.existsByEmail(email);
+    }
+
+    public boolean checkRange(String password) {
+        if (password.length() < 6 || password.length() > 40) {
+            return false;
+        }
+        return true;
     }
 
 }
