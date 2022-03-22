@@ -1,14 +1,14 @@
 package com.daangn.member.dto;
 
-import com.daangn.member.domain.Member;
-import com.daangn.member.domain.MemberStatus;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDto {
 
     private Long id;
@@ -29,12 +29,12 @@ public class MemberDto {
 
     @Builder
     public MemberDto(MemberDto dto) {
-       this.email = dto.getEmail();
-       this.password = dto.getPassword();
-       this.imageUrl = dto.getImageUrl();
-       this.status = dto.getStatus();
-       this.nickName = dto.getNickName();
-       this.updatedAt = dto.getUpdatedAt();
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+        this.imageUrl = dto.getImageUrl();
+        this.status = dto.getStatus();
+        this.nickName = dto.getNickName();
+        this.updatedAt = dto.getUpdatedAt();
     }
 
 }

@@ -1,14 +1,14 @@
 package com.daangn.auth.service;
 
-import com.daangn.auth.dto.LoginRequestDTO;
-import com.daangn.auth.dto.TokenResponseDTO;
+import com.daangn.auth.dto.LoginRequestDto;
+import com.daangn.auth.dto.TokenResponseDto;
 import com.daangn.auth.util.TokenProvider;
 import com.daangn.member.domain.Member;
 import com.daangn.member.domain.MemberStatus;
 import com.daangn.member.dto.MemberDto;
 import com.daangn.member.exceptions.NotFoundMemberException;
 import com.daangn.member.exceptions.NotMatchMemberException;
-import com.daangn.member.repository.MemberRepository;
+import com.daangn.product.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,12 +23,12 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
-    public TokenResponseDTO login(LoginRequestDTO loginRequestDTO) {
+    public TokenResponseDto loginMember(LoginRequestDto loginRequestDTO) {
         Member findMember = memberRepository.findByEmail(loginRequestDTO.getEmail())
                 .orElseThrow(() -> new NotFoundMemberException());
         validatePassword(findMember, loginRequestDTO.getPassword());
         String token = createToken(findMember.getId());
-        return new TokenResponseDTO(token);
+        return new TokenResponseDto(token);
     }
 
     private String createToken(Long id) {
@@ -44,12 +44,12 @@ public class AuthService {
     public Member createMember(MemberDto dto) {
         existsEmail(dto.getEmail());
         Member member = Member.builder()
-               .email(dto.getEmail())
-               .password(dto.getPassword())
-               .imageUrl(dto.getImageUrl())
-               .nickName(dto.getNickName())
-               .status(MemberStatus.valueOf(dto.getStatus()))
-               .build();
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .imageUrl(dto.getImageUrl())
+                .nickName(dto.getNickName())
+                .status(MemberStatus.valueOf(dto.getStatus()))
+                .build();
         memberRepository.save(member);
         return member;
     }

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class LoginRequestDTO {
+public class LoginRequestDto {
 
     @NotBlank
     private String email;
@@ -17,7 +17,7 @@ public class LoginRequestDTO {
     private String password;
 
     @Builder
-    private LoginRequestDTO(String email, String password) {
+    private LoginRequestDto(String email, String password) {
         this.email = email;
         this.password = password;
     }

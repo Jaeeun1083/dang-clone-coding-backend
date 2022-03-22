@@ -1,19 +1,18 @@
 package com.daangn.auth.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class TokenResponseDTO {
+public class TokenResponseDto {
 
     private String token;
 
-    @Builder
-    public TokenResponseDTO(String token) {
+    public TokenResponseDto(String token) {
         this.token = token;
     }
 
-    public static TokenResponseDTO from(String token) {
-        return new TokenResponseDTO(token);
+    public static TokenResponseDto from(String token) {
+        return new TokenResponseDto(token);
     }
+
 }
