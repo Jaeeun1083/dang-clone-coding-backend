@@ -25,10 +25,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> addPath = List.of(
-                "api/members/signin"
+                "api/**"
         );
         List<String> excludePath = List.of(
-
+                "api/members/signin"
         );
         registry.addInterceptor(authenticationInterceptor)
                 .addPathPatterns(addPath)
